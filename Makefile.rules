@@ -1,0 +1,26 @@
+%.o: %.c
+	@$(CC) $(CFLAGS) -c -o $(@) $(^)
+
+%.opp: %.c
+	@$(CXX) $(CXXFLAGS) -c -o $(@) $(^)
+
+%.opp: %.cpp
+	@$(CXX) $(CXXFLAGS) -c -o $(@) $(^)
+
+RUN_IN_UBUNTU ?= 0
+
+CFLAGS = -g -I src
+CXXFLAGS = -g -std=c++14 -I src -D GITHUB_WORKFLOW=$(RUN_IN_UBUNTU)
+
+ifeq ($(RUN_IN_UBUNTU),1)
+LDFLAGS = -lCatch2WithMain
+else
+LDFLAGS = -lCatch2 -lCatch2Main
+endif
+
+features/%: features/%.opp $(patsubst %.c,%.opp,$(USER_FILES))
+	$(CXX) $(CXXFLAGS) -o $(@) $(^) $(LDFLAGS)
+
+main: src/main.o $(patsubst %.c,%.o,$(USER_FILES))
+	$(CC) $(CFLAGS) -o $(@) $(^) $(LDFLAFGS)
+

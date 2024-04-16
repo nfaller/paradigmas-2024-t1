@@ -1,0 +1,31 @@
+# executables
+features/ListCreatDelete
+features/ListInfo
+features/Push
+features/ListSearchRemove
+features/ListIterator
+features/DoubleListTests
+main
+
+# project configuration
+.exercicio_zero/project
+
+# patch files
+*.orig
+*.rej
+
+# generated files
+*.o
+*.opp
+
+# result file
+RESULT
+MEMTEST
+result.raw
+
+# test tools
+.coverage
+.tox
+
+# editor files
+*.swp
